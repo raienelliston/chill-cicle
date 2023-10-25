@@ -7,9 +7,7 @@ class qrCode:
         self.qrCode = cv2.QRCodeDetector()
 
     def read(self):
-        _, frame = self.camera.read()
-        data, bbox, _ = self.qrCode.detectAndDecode(frame)
-        return data
+        return self.data
 
     def show(self):
         _, frame = self.camera.read()
@@ -20,6 +18,8 @@ class qrCode:
             cv2.putText(frame, data, (int(bbox[0][0][0]), int(bbox[0][0][1]) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
             cv2.imshow("QR Code", frame)
             cv2.waitKey(1)
+        if data:
+            self.data = data
 
     def device(self):
         return self.device
